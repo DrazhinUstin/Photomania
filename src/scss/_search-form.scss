@@ -15,15 +15,15 @@
         }
         &:focus {
             outline: none;
-            border-bottom: 2px solid $dark-olive;
-            color: $dark-olive;
+            border-bottom: 2px solid $primary-clr;
+            color: $primary-clr;
             &::placeholder {
-                color: $dark-olive;
+                color: $primary-clr;
             }
             & ~ button {
                 padding-bottom: calc(0.5rem - 1px);
-                border-bottom: 2px solid $dark-olive;
-                color: $dark-olive;
+                border-bottom: 2px solid $primary-clr;
+                color: $primary-clr;
                 svg {
                     transform: rotate(360deg);
                 }

@@ -1,5 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap');
 @import 'config';
+@import 'navbar';
 @import 'search-form';
 @import 'photos';
 
@@ -16,7 +17,7 @@
 
 body {
     min-height: 100vh;
-    background: linear-gradient($primary-clr 0%, $primary-clr-2 100%);
+    background: linear-gradient($grey 0%, $primary-clr-2 100%);
     color: $white;
     line-height: 1;
 }
@@ -47,7 +48,7 @@ button {
     padding: 0.5rem;
     border-radius: $radius;
     background-color: $white;
-    color: $black;
+    color: $primary-clr-2;
     font-size: 0.9rem;
     text-transform: capitalize;
     letter-spacing: $spacing;

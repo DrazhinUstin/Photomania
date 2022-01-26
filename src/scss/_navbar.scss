@@ -1,0 +1,20 @@
+.navbar-wrapper {
+    box-shadow: $shadow;
+}
+
+.navbar {
+    height: 5rem;
+    @extend %flex-between;
+    &-logo {
+        font-size: 2rem;
+        font-family: 'Courgette', cursive;
+    }
+    a {
+        color: $white;
+        font-size: 2rem;
+        transition: $ease-trans;
+        &:hover {
+            color: $primary-clr;
+        }
+    }
+}

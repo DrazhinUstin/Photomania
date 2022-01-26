@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Navbar from './components/Navbar';
 import SearchForm from './components/SearchForm';
 import Photos from './components/Photos';
 import { destructPhotos, getDocumentHeight } from './utils';
@@ -55,11 +56,14 @@ const App = () => {
     });
 
     return (
-        <section className='section section-center'>
-            <SearchForm query={query} setQuery={setQuery} setPage={setPage} error={error} />
-            <Photos photos={photos} loading={loading} />
-            {loading && <div className='loading'></div>}
-        </section>
+        <>
+            <Navbar />
+            <section className='section section-center'>
+                <SearchForm query={query} setQuery={setQuery} setPage={setPage} error={error} />
+                <Photos photos={photos} loading={loading} />
+                {loading && <div className='loading'></div>}
+            </section>
+        </>
     );
 };
 
