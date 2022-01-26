@@ -1,13 +1,16 @@
 import React from 'react';
 
-const Photos = ({ photos }) => {
+const Photos = ({ photos, loading }) => {
+    if (!photos.length && !loading) {
+        return <p className='alert-message'>No photos to display...</p>;
+    }
     return (
         <div className='photos-container'>
-            {photos.map((photo) => {
-                const { id, alt_description, userName, userImage, linkToUser, image, linkToImage } =
+            {photos.map((photo, index) => {
+                const { alt_description, userName, userImage, linkToUser, image, linkToImage } =
                     photo;
                 return (
-                    <article key={id} className='photo'>
+                    <article key={index} className='photo'>
                         <img src={image} alt={alt_description} className='photo-img' />
                         <footer className='photo-info'>
                             <div>

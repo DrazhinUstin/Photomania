@@ -10,6 +10,9 @@
         background-color: transparent;
         color: $white;
         font-size: 1.2rem;
+        &::placeholder {
+            color: $white;
+        }
         &:focus {
             outline: none;
             border-bottom: 2px solid $dark-olive;
@@ -26,8 +29,18 @@
                 }
             }
         }
-        &::placeholder {
-            color: $white;
+        &.error {
+            &:focus {
+                border-bottom: 2px solid $red;
+                color: $red;
+                &::placeholder {
+                    color: $red;
+                }
+                & ~ button {
+                    border-bottom: 2px solid $red;
+                    color: $red;
+                }
+            }
         }
     }
     button {
