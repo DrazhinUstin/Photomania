@@ -30,6 +30,20 @@
         border: 0.25rem solid $white;
         box-shadow: $shadow;
     }
+    &-header {
+        button {
+            width: 1.75rem;
+            height: 1.75rem;
+            @extend %flex-center;
+            border: none;
+            background-color: $blue;
+            color: $white;
+            font-size: 1.2rem;
+            &.cheked {
+                background-color: $olive;
+            }
+        }
+    }
     &-footer {
         @extend %flex-between;
         & > div:first-child {
@@ -73,7 +87,7 @@
         &-close-btn {
             top: 1rem;
             right: 1rem;
-            font-size: 1.5rem;
+            font-size: 1.75rem;
         }
     }
 }
@@ -97,6 +111,7 @@
         box-shadow: unset;
         z-index: unset;
         &-photo,
+        &-header,
         &-footer {
             position: relative;
             z-index: 100;

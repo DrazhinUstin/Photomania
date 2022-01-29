@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaChevronLeft, FaChevronRight, FaTimes } from 'react-icons/fa';
+import { FaChevronLeft, FaChevronRight, FaTimes, FaPlus, FaCheck } from 'react-icons/fa';
 
-const Modal = ({ index, photos }) => {
+const Modal = ({ index, photos, inFavorites, setInFavorites }) => {
     const { userName, image, linkToImage, userImage, linkToUser, alt_description } = photos[index];
     const navigate = useNavigate();
 
@@ -19,6 +19,15 @@ const Modal = ({ index, photos }) => {
         <div className='modal-container'>
             <div className={'modal-overlay'}></div>
             <section className='modal'>
+                <header className='modal-header'>
+                    <button
+                        className={inFavorites ? 'checked' : ''}
+                        title={inFavorites ? 'remove from favorites' : 'add to favorites'}
+                        onClick={() => setInFavorites((inFavorites) => !inFavorites)}
+                    >
+                        {inFavorites ? <FaCheck /> : <FaPlus />}
+                    </button>
+                </header>
                 <img src={image} alt={alt_description} className='modal-photo' />
                 <footer className='modal-footer'>
                     <div>

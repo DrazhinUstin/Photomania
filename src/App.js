@@ -4,7 +4,7 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import SinglePhoto from './pages/SinglePhoto';
 import ErrorPage from './pages/ErrorPage';
-import { destructPhotos, getDocumentHeight } from './utils';
+import { destructPhotos, getDocumentHeight, getStorageItem, setStorageItem } from './utils';
 const API_KEY = process.env.REACT_APP_ACCESS_KEY;
 
 const App = () => {
@@ -13,6 +13,7 @@ const App = () => {
     const [page, setPage] = useState(1);
     const [query, setQuery] = useState('');
     const [photos, setPhotos] = useState([]);
+    const [favorites, setFavorites] = useState(getStorageItem('favorites'));
     const location = useLocation();
 
     const getPhotos = async (url) => {
@@ -59,6 +60,10 @@ const App = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     });
 
+    useEffect(() => {
+        setStorageItem('favorites', favorites);
+    }, [favorites]);
+
     return (
         <>
             <Navbar />
@@ -67,7 +72,10 @@ const App = () => {
                     path={'/'}
                     element={<Home {...{ loading, error, photos, query, setQuery, setPage }} />}
                 />
-                <Route path={'photo/:id'} element={<SinglePhoto photos={photos} />} />
+                <Route
+                    path={'photo/:id'}
+                    element={<SinglePhoto {...{ photos, favorites, setFavorites }} />}
+                />
                 <Route path={'*'} element={<ErrorPage />} />
             </Routes>
         </>
