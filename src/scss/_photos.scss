@@ -36,18 +36,10 @@
         transition: $ease-trans;
         h4 {
             margin-bottom: 0.5rem;
-            font-weight: 600;
         }
-        img {
+        .user-img {
             width: 3rem;
             height: 3rem;
-            border: 2px solid transparent;
-            border-radius: 50%;
-            object-fit: cover;
-            transition: $ease-trans;
-            &:hover {
-                border-color: $olive;
-            }
         }
         .btn {
             letter-spacing: unset;

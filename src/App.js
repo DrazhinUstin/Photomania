@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import SearchForm from './components/SearchForm';
-import Photos from './components/Photos';
+import Home from './pages/Home';
+import SinglePhoto from './pages/SinglePhoto';
+import ErrorPage from './pages/ErrorPage';
 import { destructPhotos, getDocumentHeight } from './utils';
 const API_KEY = process.env.REACT_APP_ACCESS_KEY;
 
@@ -11,6 +13,7 @@ const App = () => {
     const [page, setPage] = useState(1);
     const [query, setQuery] = useState('');
     const [photos, setPhotos] = useState([]);
+    const location = useLocation();
 
     const getPhotos = async (url) => {
         setLoading(true);
@@ -43,8 +46,9 @@ const App = () => {
     }, [page, query]);
 
     useEffect(() => {
+        const isCorrectlocation = () => (location.pathname === '/' ? true : false);
         const handleScroll = () => {
-            if (error || loading) return;
+            if (error || loading || !isCorrectlocation()) return;
             const documentHeight = getDocumentHeight();
             const windowHeight = document.documentElement.clientHeight;
             if (windowHeight + window.pageYOffset >= documentHeight) {
@@ -58,11 +62,14 @@ const App = () => {
     return (
         <>
             <Navbar />
-            <section className='section section-center'>
-                <SearchForm query={query} setQuery={setQuery} setPage={setPage} error={error} />
-                <Photos photos={photos} loading={loading} />
-                {loading && <div className='loading'></div>}
-            </section>
+            <Routes>
+                <Route
+                    path={'/'}
+                    element={<Home {...{ loading, error, photos, query, setQuery, setPage }} />}
+                />
+                <Route path={'photo/:id'} element={<SinglePhoto photos={photos} />} />
+                <Route path={'*'} element={<ErrorPage />} />
+            </Routes>
         </>
     );
 };

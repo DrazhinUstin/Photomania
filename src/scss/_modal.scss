@@ -1,0 +1,118 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 99;
+}
+
+.modal-container {
+    text-align: center;
+}
+
+.modal {
+    position: relative;
+    display: inline-block;
+    margin: 4rem;
+    padding: 2rem;
+    border-radius: $radius;
+    background: linear-gradient($grey 0%, $primary-clr 100%);
+    box-shadow: $shadow;
+    z-index: 100;
+    &-photo {
+        max-width: 1088px;
+        max-height: 920px;
+        width: 100%;
+        object-fit: cover;
+        margin: 0 auto 2rem;
+        border: 0.25rem solid $white;
+        box-shadow: $shadow;
+    }
+    &-footer {
+        @extend %flex-between;
+        & > div:first-child {
+            display: flex;
+            align-items: center;
+            column-gap: 0.5rem;
+        }
+    }
+    &-close-btn {
+        position: fixed;
+        top: 2rem;
+        right: 2rem;
+        color: $white;
+        font-size: 2rem;
+        z-index: 101;
+    }
+    &-controls {
+        position: fixed;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+        width: 100%;
+        @extend %flex-between;
+        z-index: 101;
+        button {
+            margin: 0 2rem;
+            border: none;
+            background-color: transparent;
+            color: $white;
+            font-size: 2.5rem;
+        }
+    }
+}
+
+@media screen and (max-width: 1340px) {
+    .modal {
+        &-controls button {
+            margin: 0 1rem;
+            font-size: 2rem;
+        }
+        &-close-btn {
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+        }
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .modal {
+        margin: 4rem 2.5rem;
+        &-controls button {
+            margin: 0 0.25rem;
+        }
+        &-close-btn {
+            right: 0.5rem;
+        }
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .modal {
+        padding: 0;
+        background: unset;
+        box-shadow: unset;
+        z-index: unset;
+        &-photo,
+        &-footer {
+            position: relative;
+            z-index: 100;
+        }
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .modal {
+        margin: 4rem 0;
+        &-footer {
+            flex-flow: column wrap;
+            row-gap: 2rem;
+        }
+        &-photo {
+            border: none;
+        }
+    }
+}

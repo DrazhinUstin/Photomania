@@ -3,6 +3,7 @@
 @import 'navbar';
 @import 'search-form';
 @import 'photos';
+@import 'modal';
 
 * {
     margin: 0;
@@ -28,6 +29,11 @@ h3,
 h4 {
     text-transform: capitalize;
     letter-spacing: $spacing;
+}
+
+h3,
+h4 {
+    font-weight: 600;
 }
 
 img,
@@ -56,6 +62,7 @@ button {
     &:hover {
         background-color: $olive;
         color: $white;
+        box-shadow: $shadow;
     }
 }
 
@@ -70,6 +77,17 @@ button {
         margin-bottom: 4rem;
         text-align: center;
         font-size: 2rem;
+    }
+}
+
+.user-img {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    object-fit: cover;
+    transition: $ease-trans;
+    &:hover {
+        box-shadow: 0 0 0 2px $olive;
     }
 }
 
