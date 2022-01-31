@@ -26,6 +26,14 @@ const getDocumentHeight = () => {
     );
 };
 
+const getElemHeight = (elem) => {
+    let totalHeight = 0;
+    [...elem.children].forEach((child) => {
+        totalHeight += child.offsetHeight;
+    });
+    return totalHeight;
+};
+
 const getStorageItem = (key) => {
     return localStorage.getItem(key) ? JSON.parse(localStorage.getItem(key)) : [];
 };
@@ -34,4 +42,4 @@ const setStorageItem = (key, value) => {
     localStorage.setItem(key, JSON.stringify(value));
 };
 
-export { destructPhotos, getDocumentHeight, getStorageItem, setStorageItem };
+export { destructPhotos, getDocumentHeight, getElemHeight, getStorageItem, setStorageItem };

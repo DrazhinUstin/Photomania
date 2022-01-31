@@ -67,7 +67,7 @@ const App = () => {
 
     return (
         <>
-            <Navbar />
+            <Navbar favorites={favorites} />
             <Routes>
                 <Route
                     path={'/'}

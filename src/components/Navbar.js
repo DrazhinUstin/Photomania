@@ -1,20 +1,57 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { FaGithub } from 'react-icons/fa';
+import { getElemHeight } from '../utils';
 
-const Navbar = () => {
+const Navbar = ({ favorites }) => {
+    const [isNavbarMenuOpen, setIsNavbarMenuOpen] = useState(false);
+    const navbarMenuRef = useRef(null);
+
+    useEffect(() => {
+        const navbarMenu = navbarMenuRef.current;
+
+        const handleClick = (event) => {
+            if (event.target.tagName !== 'A') return;
+            setIsNavbarMenuOpen(false);
+        };
+
+        navbarMenu.addEventListener('click', handleClick);
+
+        return () => navbarMenu.removeEventListener('click', handleClick);
+    }, []);
+
+    useEffect(() => {
+        const navbarMenu = navbarMenuRef.current;
+        if (isNavbarMenuOpen) {
+            navbarMenu.style.height = `${getElemHeight(navbarMenu)}px`;
+        } else {
+            navbarMenu.style.height = '';
+        }
+    }, [isNavbarMenuOpen]);
+
     return (
         <nav className='navbar-wrapper'>
             <div className='navbar section-center'>
-                <Link to={'.'}>
-                    <h1 className='navbar-logo'>photomania</h1>
-                </Link>
-                <ul className='navbar-menu'>
+                <div className='navbar-header'>
+                    <Link to={'.'}>
+                        <h1 className='navbar-logo'>photomania</h1>
+                    </Link>
+                    <button
+                        className={`navbar-menu-toggle-btn ${isNavbarMenuOpen ? 'active' : ''}`}
+                        onClick={() => setIsNavbarMenuOpen((isNavbarMenuOpen) => !isNavbarMenuOpen)}
+                    >
+                        <span></span>
+                    </button>
+                </div>
+                <ul className='navbar-menu' ref={navbarMenuRef}>
                     <li>
                         <Link to={'.'}>home</Link>
                     </li>
                     <li>
-                        <Link to={'favorites'}>favorites</Link>
+                        <Link to={'favorites'} className='favorites'>
+                            favorites
+                            <span>{favorites.length}</span>
+                        </Link>
                     </li>
                 </ul>
                 <a
