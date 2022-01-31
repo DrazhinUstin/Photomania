@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaChevronLeft, FaChevronRight, FaTimes, FaPlus, FaCheck } from 'react-icons/fa';
 
-const Modal = ({ index, photos, inFavorites, setInFavorites }) => {
+const Modal = ({ index, photos, inFavorites, setInFavorites, url }) => {
     const { userName, image, linkToImage, userImage, linkToUser, alt_description } = photos[index];
     const navigate = useNavigate();
 
@@ -11,7 +11,7 @@ const Modal = ({ index, photos, inFavorites, setInFavorites }) => {
         if (index > photos.length - 1) index = 0;
         if (index < 0) index = photos.length - 1;
         const targetPhoto = photos[index];
-        const targetUrl = `/photo/${targetPhoto.id}`;
+        const targetUrl = `${url}${targetPhoto.id}`;
         navigate(targetUrl);
     };
 
@@ -45,7 +45,7 @@ const Modal = ({ index, photos, inFavorites, setInFavorites }) => {
                         view on unsplash
                     </a>
                 </footer>
-                <Link to={'/'} className='modal-close-btn'>
+                <Link to={url} className='modal-close-btn'>
                     <FaTimes />
                 </Link>
                 {photos.length > 1 && (

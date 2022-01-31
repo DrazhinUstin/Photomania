@@ -41,6 +41,10 @@ svg {
     display: block;
 }
 
+li {
+    list-style-type: none;
+}
+
 a {
     text-decoration: none;
 }
@@ -65,6 +69,9 @@ button {
         background-color: $olive;
         color: $white;
         box-shadow: $shadow;
+        &.red {
+            background-color: $red;
+        }
     }
 }
 
@@ -94,6 +101,7 @@ button {
 }
 
 .alert-message {
+    margin-bottom: 4rem;
     text-align: center;
     font-size: 1.2rem;
     font-style: italic;

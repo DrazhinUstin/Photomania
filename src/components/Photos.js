@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Photos = ({ photos, loading }) => {
+const Photos = ({ photos, loading, url = '/' }) => {
     if (!photos.length && !loading) {
         return <p className='alert-message'>No photos to display...</p>;
     }
@@ -12,7 +12,7 @@ const Photos = ({ photos, loading }) => {
                     photo;
                 return (
                     <article key={index} className='photo'>
-                        <Link to={`photo/${id}`}>
+                        <Link to={`${url}${id}`}>
                             <img src={image} alt={alt_description} className='photo-img' />
                         </Link>
                         <footer className='photo-info'>

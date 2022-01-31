@@ -9,9 +9,17 @@
         font-size: 2rem;
         font-family: 'Courgette', cursive;
     }
+    &-menu {
+        display: flex;
+        column-gap: 1.5rem;
+        a {
+            font-size: 1.2rem;
+            text-transform: capitalize;
+            letter-spacing: $spacing;
+        }
+    }
     a {
         color: $white;
-        font-size: 2rem;
         transition: $ease-trans;
         &:hover {
             color: $primary-clr;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import Modal from '../components/Modal';
 import ErrorPage from './ErrorPage';
 
@@ -12,10 +12,11 @@ const checkIsInFavorites = (items, id) => {
     return items.find((item) => item.id === id) ? true : false;
 };
 
-const SinglePhoto = ({ photos, favorites, setFavorites }) => {
+const SinglePhoto = ({ photos, favorites, setFavorites, url = '/' }) => {
     const { id } = useParams();
     const index = getPhotoIndex(id, photos);
-    const [inFavorites, setInFavorites] = useState(false);
+    const [inFavorites, setInFavorites] = useState(checkIsInFavorites(favorites, id));
+    const navigate = useNavigate();
 
     useEffect(() => {
         setInFavorites(() => checkIsInFavorites(favorites, id));
@@ -25,17 +26,18 @@ const SinglePhoto = ({ photos, favorites, setFavorites }) => {
         setFavorites((favorites) => {
             if (inFavorites && !checkIsInFavorites(favorites, id)) {
                 return [...favorites, photos[index]];
-            } else if (!inFavorites) {
+            } else if (!inFavorites && checkIsInFavorites(favorites, id)) {
                 return favorites.filter((item) => item.id !== id);
             } else return favorites;
         });
+        if (url === '/favorites/' && !inFavorites) navigate(url);
     }, [inFavorites]);
 
     if (index === -1) {
         return <ErrorPage />;
     }
 
-    return <Modal {...{ index, photos, inFavorites, setInFavorites }} />;
+    return <Modal {...{ index, photos, inFavorites, setInFavorites, url }} />;
 };
 
 export default SinglePhoto;

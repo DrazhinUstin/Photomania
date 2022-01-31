@@ -9,7 +9,16 @@ const Navbar = () => {
                 <Link to={'.'}>
                     <h1 className='navbar-logo'>photomania</h1>
                 </Link>
+                <ul className='navbar-menu'>
+                    <li>
+                        <Link to={'.'}>home</Link>
+                    </li>
+                    <li>
+                        <Link to={'favorites'}>favorites</Link>
+                    </li>
+                </ul>
                 <a
+                    style={{ fontSize: '2rem' }}
                     href='https://github.com/DrazhinUstin/Photomania'
                     target='_blank'
                     rel='noopener noreferrer'

@@ -3,6 +3,7 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import SinglePhoto from './pages/SinglePhoto';
+import Favorites from './pages/Favorites';
 import ErrorPage from './pages/ErrorPage';
 import { destructPhotos, getDocumentHeight, getStorageItem, setStorageItem } from './utils';
 const API_KEY = process.env.REACT_APP_ACCESS_KEY;
@@ -73,9 +74,23 @@ const App = () => {
                     element={<Home {...{ loading, error, photos, query, setQuery, setPage }} />}
                 />
                 <Route
-                    path={'photo/:id'}
+                    path={':id'}
                     element={<SinglePhoto {...{ photos, favorites, setFavorites }} />}
                 />
+                <Route
+                    path={'favorites'}
+                    element={<Favorites {...{ favorites, setFavorites }} />}
+                />
+                <Route
+                    path={'favorites/:id'}
+                    element={
+                        <SinglePhoto
+                            photos={favorites}
+                            url={'/favorites/'}
+                            {...{ favorites, setFavorites }}
+                        />
+                    }
+                ></Route>
                 <Route path={'*'} element={<ErrorPage />} />
             </Routes>
         </>
