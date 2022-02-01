@@ -31,6 +31,7 @@
         box-shadow: $shadow;
     }
     &-header {
+        display: flex;
         button {
             width: 1.75rem;
             height: 1.75rem;
@@ -41,6 +42,12 @@
             font-size: 1.2rem;
             &.checked {
                 background-color: $olive;
+                & ~ button {
+                    background-color: $blue;
+                }
+            }
+            &:last-child {
+                background-color: $red;
             }
         }
     }

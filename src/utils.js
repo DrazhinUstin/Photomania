@@ -34,6 +34,23 @@ const getElemHeight = (elem) => {
     return totalHeight;
 };
 
+const triggerFileDownload = async (url, filename = 'image.jpg') => {
+    try {
+        const response = await fetch(url);
+        const blob = await response.blob();
+        const urlToDownload = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = urlToDownload;
+        link.download = filename;
+        document.body.append(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(urlToDownload);
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 const getStorageItem = (key) => {
     return localStorage.getItem(key) ? JSON.parse(localStorage.getItem(key)) : [];
 };
@@ -42,4 +59,11 @@ const setStorageItem = (key, value) => {
     localStorage.setItem(key, JSON.stringify(value));
 };
 
-export { destructPhotos, getDocumentHeight, getElemHeight, getStorageItem, setStorageItem };
+export {
+    destructPhotos,
+    getDocumentHeight,
+    getElemHeight,
+    triggerFileDownload,
+    getStorageItem,
+    setStorageItem,
+};

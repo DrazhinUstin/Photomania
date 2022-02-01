@@ -1,9 +1,18 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaChevronLeft, FaChevronRight, FaTimes, FaPlus, FaCheck } from 'react-icons/fa';
+import {
+    FaChevronLeft,
+    FaChevronRight,
+    FaTimes,
+    FaPlus,
+    FaCheck,
+    FaDownload,
+} from 'react-icons/fa';
+import { triggerFileDownload } from '../utils';
 
 const Modal = ({ index, photos, inFavorites, setInFavorites, url }) => {
-    const { userName, image, linkToImage, userImage, linkToUser, alt_description } = photos[index];
+    const { id, userName, image, linkToImage, userImage, linkToUser, alt_description } =
+        photos[index];
     const navigate = useNavigate();
 
     const switchPhoto = (next = true) => {
@@ -26,6 +35,12 @@ const Modal = ({ index, photos, inFavorites, setInFavorites, url }) => {
                         onClick={() => setInFavorites((inFavorites) => !inFavorites)}
                     >
                         {inFavorites ? <FaCheck /> : <FaPlus />}
+                    </button>
+                    <button
+                        title='download photo'
+                        onClick={() => triggerFileDownload(image, `${id}.jpg`)}
+                    >
+                        <FaDownload />
                     </button>
                 </header>
                 <img src={image} alt={alt_description} className='modal-photo' />
