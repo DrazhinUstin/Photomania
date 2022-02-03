@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import SinglePhoto from './pages/SinglePhoto';
 import Favorites from './pages/Favorites';
+import About from './pages/About';
 import ErrorPage from './pages/ErrorPage';
 import { destructPhotos, getDocumentHeight, getStorageItem, setStorageItem } from './utils';
 const API_KEY = process.env.REACT_APP_ACCESS_KEY;
@@ -124,6 +125,7 @@ const App = () => {
                         />
                     }
                 ></Route>
+                <Route path='about' element={<About />} />
                 <Route path={'*'} element={<ErrorPage />} />
             </Routes>
         </>

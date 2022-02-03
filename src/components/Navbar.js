@@ -48,6 +48,9 @@ const Navbar = ({ favorites }) => {
                         <Link to={'.'}>home</Link>
                     </li>
                     <li>
+                        <Link to={'about'}>about</Link>
+                    </li>
+                    <li>
                         <Link to={'favorites'} className='favorites'>
                             favorites
                             <span>{favorites.length}</span>
