@@ -7,11 +7,12 @@ import {
     FaPlus,
     FaCheck,
     FaDownload,
+    FaUnsplash,
 } from 'react-icons/fa';
 import { triggerFileDownload } from '../utils';
 
-const Modal = ({ index, photos, inFavorites, setInFavorites, url }) => {
-    const { id, userName, image, linkToImage, userImage, linkToUser, alt_description } =
+const Modal = ({ index, photos, inFavorites, setInFavorites, setSearhByUser, url }) => {
+    const { id, login, userName, image, linkToImage, userImage, linkToUser, alt_description } =
         photos[index];
     const navigate = useNavigate();
 
@@ -42,6 +43,14 @@ const Modal = ({ index, photos, inFavorites, setInFavorites, url }) => {
                     >
                         <FaDownload />
                     </button>
+                    <a
+                        title='view on unsplash'
+                        href={linkToImage}
+                        target={'_blank'}
+                        rel='noopener noreferrer'
+                    >
+                        <FaUnsplash />
+                    </a>
                 </header>
                 <img src={image} alt={alt_description} className='modal-photo' />
                 <footer className='modal-footer'>
@@ -51,14 +60,9 @@ const Modal = ({ index, photos, inFavorites, setInFavorites, url }) => {
                         </a>
                         <h4>{userName}</h4>
                     </div>
-                    <a
-                        href={linkToImage}
-                        className='btn'
-                        target={'_blank'}
-                        rel='noopener noreferrer'
-                    >
-                        view on unsplash
-                    </a>
+                    <button className='btn' onClick={() => setSearhByUser(login)}>
+                        watch user photos
+                    </button>
                 </footer>
                 <Link to={url} className='modal-close-btn'>
                     <FaTimes />

@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { FaSearch } from 'react-icons/fa';
 
-const SearchForm = ({ query, setQuery, setPage, error }) => {
+const SearchForm = ({ query, setQuery, setPage, setSearch, error }) => {
     const queryDOM = useRef(null);
 
     const handleSubmit = (event) => {
@@ -10,6 +10,7 @@ const SearchForm = ({ query, setQuery, setPage, error }) => {
         if (!value || value === query) {
             queryDOM.current.focus();
         } else {
+            setSearch('photos');
             setQuery(value);
             setPage(1);
         }

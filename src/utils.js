@@ -4,6 +4,7 @@ const destructPhotos = (photos) => {
             id,
             alt_description,
             user: {
+                username: login,
                 name: userName,
                 profile_image: { large: userImage },
                 links: { html: linkToUser },
@@ -11,7 +12,7 @@ const destructPhotos = (photos) => {
             urls: { regular: image },
             links: { html: linkToImage },
         } = photo;
-        return { id, alt_description, userName, userImage, linkToUser, image, linkToImage };
+        return { id, alt_description, userName, userImage, linkToUser, image, linkToImage, login };
     });
 };
 

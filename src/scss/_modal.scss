@@ -32,7 +32,8 @@
     }
     &-header {
         display: flex;
-        button {
+        button,
+        a {
             width: 1.75rem;
             height: 1.75rem;
             @extend %flex-center;
@@ -45,9 +46,15 @@
                 & ~ button {
                     background-color: $blue;
                 }
+                & ~ a {
+                    background-color: $brown;
+                }
+            }
+            &:nth-child(2) {
+                background-color: $red;
             }
             &:last-child {
-                background-color: $red;
+                background-color: $primary-clr-2;
             }
         }
     }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import SinglePhoto from './pages/SinglePhoto';
@@ -11,11 +11,14 @@ const API_KEY = process.env.REACT_APP_ACCESS_KEY;
 const App = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
+    const [search, setSearch] = useState('photos');
     const [page, setPage] = useState(1);
     const [query, setQuery] = useState('');
+    const [isPhotosOver, setIsPhotosOver] = useState(false);
     const [photos, setPhotos] = useState([]);
     const [favorites, setFavorites] = useState(getStorageItem('favorites'));
     const location = useLocation();
+    const navigate = useNavigate();
 
     const getPhotos = async (url) => {
         setLoading(true);
@@ -23,34 +26,58 @@ const App = () => {
             const response = await fetch(url);
             const data = await response.json();
             if (data.errors) {
+                setPhotos([]);
                 throw new Error(data.errors);
             }
             const newPhotos = destructPhotos(data.results || data);
             if (page === 1) {
                 !newPhotos.length ? setError(true) : setError(false);
                 setPhotos(newPhotos);
+                setIsPhotosOver(false);
             } else {
+                !newPhotos.length ? setIsPhotosOver(true) : setIsPhotosOver(false);
                 setPhotos((photos) => [...photos, ...newPhotos]);
             }
         } catch (error) {
+            setError(true);
             console.log(error);
         }
         setLoading(false);
     };
 
+    const setSearhByUser = (login) => {
+        if (query !== login) {
+            setSearch('photosByUser');
+            setQuery(login);
+            setPage(1);
+        }
+        navigate('/');
+    };
+
     useEffect(() => {
         const url = 'https://api.unsplash.com';
-        let fullURL = `${url}/photos?client_id=${API_KEY}&page=${page}`;
-        if (query) {
-            fullURL = `${url}/search/photos?client_id=${API_KEY}&page=${page}&query=${query}`;
+        let fullUrl;
+        switch (search) {
+            case 'photos':
+                fullUrl = `${url}/photos?client_id=${API_KEY}&page=${page}`;
+                if (query) {
+                    fullUrl = `${url}/search/photos?client_id=${API_KEY}&page=${page}&query=${query}`;
+                }
+                getPhotos(fullUrl);
+                break;
+            case 'photosByUser':
+                if (query) {
+                    fullUrl = `${url}/users/${query}/photos?client_id=${API_KEY}&page=${page}`;
+                    getPhotos(fullUrl);
+                }
+                break;
         }
-        getPhotos(fullURL);
-    }, [page, query]);
+    }, [search, page, query]);
 
     useEffect(() => {
         const isCorrectlocation = () => (location.pathname === '/' ? true : false);
         const handleScroll = () => {
-            if (error || loading || !isCorrectlocation()) return;
+            if (error || loading || isPhotosOver || !isCorrectlocation()) return;
             const documentHeight = getDocumentHeight();
             const windowHeight = document.documentElement.clientHeight;
             if (windowHeight + window.pageYOffset >= documentHeight) {
@@ -71,11 +98,17 @@ const App = () => {
             <Routes>
                 <Route
                     path={'/'}
-                    element={<Home {...{ loading, error, photos, query, setQuery, setPage }} />}
+                    element={
+                        <Home
+                            {...{ loading, error, photos, query, setQuery, setPage, setSearch }}
+                        />
+                    }
                 />
                 <Route
                     path={':id'}
-                    element={<SinglePhoto {...{ photos, favorites, setFavorites }} />}
+                    element={
+                        <SinglePhoto {...{ photos, favorites, setFavorites, setSearhByUser }} />
+                    }
                 />
                 <Route
                     path={'favorites'}
@@ -87,7 +120,7 @@ const App = () => {
                         <SinglePhoto
                             photos={favorites}
                             url={'/favorites/'}
-                            {...{ favorites, setFavorites }}
+                            {...{ favorites, setFavorites, setSearhByUser }}
                         />
                     }
                 ></Route>
