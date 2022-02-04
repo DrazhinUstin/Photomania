@@ -30,27 +30,32 @@ const Modal = ({ index, photos, inFavorites, setInFavorites, setSearhByUser, url
             <div className={'modal-overlay'}></div>
             <section className='modal'>
                 <header className='modal-header'>
-                    <button
-                        className={inFavorites ? 'checked' : ''}
-                        title={inFavorites ? 'remove from favorites' : 'add to favorites'}
-                        onClick={() => setInFavorites((inFavorites) => !inFavorites)}
-                    >
-                        {inFavorites ? <FaCheck /> : <FaPlus />}
-                    </button>
-                    <button
-                        title='download photo'
-                        onClick={() => triggerFileDownload(image, `${id}.jpg`)}
-                    >
-                        <FaDownload />
-                    </button>
-                    <a
-                        title='view on unsplash'
-                        href={linkToImage}
-                        target={'_blank'}
-                        rel='noopener noreferrer'
-                    >
-                        <FaUnsplash />
-                    </a>
+                    <div>
+                        <button
+                            className={inFavorites ? 'checked' : ''}
+                            title={inFavorites ? 'remove from favorites' : 'add to favorites'}
+                            onClick={() => setInFavorites((inFavorites) => !inFavorites)}
+                        >
+                            {inFavorites ? <FaCheck /> : <FaPlus />}
+                        </button>
+                        <button
+                            title='download photo'
+                            onClick={() => triggerFileDownload(image, `${id}.jpg`)}
+                        >
+                            <FaDownload />
+                        </button>
+                        <a
+                            title='view on unsplash'
+                            href={linkToImage}
+                            target={'_blank'}
+                            rel='noopener noreferrer'
+                        >
+                            <FaUnsplash />
+                        </a>
+                    </div>
+                    <div>
+                        {index + 1} out of {photos.length}
+                    </div>
                 </header>
                 <img src={image} alt={alt_description} className='modal-photo' />
                 <footer className='modal-footer'>

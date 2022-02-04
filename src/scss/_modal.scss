@@ -31,7 +31,10 @@
         box-shadow: $shadow;
     }
     &-header {
-        display: flex;
+        @extend %flex-between;
+        & > div:first-child {
+            display: flex;
+        }
         button,
         a {
             width: 1.75rem;
@@ -136,6 +139,9 @@
 @media screen and (max-width: 600px) {
     .modal {
         margin: 4rem 0;
+        &-header {
+            padding-right: 0.5rem;
+        }
         &-footer {
             flex-flow: column wrap;
             row-gap: 2rem;

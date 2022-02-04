@@ -17,6 +17,9 @@
                 font-size: 1.2rem;
                 font-weight: 500;
                 line-height: 1.2;
+                @media screen and (max-width: 600px) {
+                    font-size: 1.1rem;
+                }
             }
             svg {
                 font-size: 1.2rem;
@@ -42,14 +45,6 @@
             & > div {
                 opacity: 1;
             }
-        }
-    }
-}
-
-@media screen and (max-width: 600px) {
-    .accordion-item-header {
-        p {
-            font-size: 1.1rem;
         }
     }
 }
