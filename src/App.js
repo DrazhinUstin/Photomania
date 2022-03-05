@@ -11,6 +11,7 @@ import { destructPhotos, getDocumentHeight, getStorageItem, setStorageItem } fro
 const API_KEY = process.env.REACT_APP_ACCESS_KEY;
 
 const App = () => {
+    const [input, setInput] = useState('');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [search, setSearch] = useState('photos');
@@ -47,8 +48,15 @@ const App = () => {
         setLoading(false);
     };
 
-    const setSearhByUser = (login) => {
+    const searchPhotos = (value) => {
+        setSearch('photos');
+        setQuery(value);
+        setPage(1);
+    };
+
+    const searchUserPhotos = (login) => {
         if (query !== login) {
+            setInput('');
             setSearch('photosByUser');
             setQuery(login);
             setPage(1);
@@ -81,14 +89,14 @@ const App = () => {
         const handleScroll = () => {
             if (error || loading || isPhotosOver || !isCorrectlocation()) return;
             const documentHeight = getDocumentHeight();
-            const windowHeight = document.documentElement.clientHeight;
-            if (windowHeight + window.pageYOffset >= documentHeight) {
+            const windowHeight = window.innerHeight;
+            if (windowHeight + window.pageYOffset >= documentHeight - 1) {
                 setPage((page) => page + 1);
             }
         };
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
-    });
+    }, [error, loading, isPhotosOver, location]);
 
     useEffect(() => {
         setStorageItem('favorites', favorites);
@@ -102,14 +110,14 @@ const App = () => {
                     path={'/'}
                     element={
                         <Home
-                            {...{ loading, error, photos, query, setQuery, setPage, setSearch }}
+                            {...{ input, setInput, loading, error, photos, query, searchPhotos }}
                         />
                     }
                 />
                 <Route
                     path={':id'}
                     element={
-                        <SinglePhoto {...{ photos, favorites, setFavorites, setSearhByUser }} />
+                        <SinglePhoto {...{ photos, favorites, setFavorites, searchUserPhotos }} />
                     }
                 />
                 <Route
@@ -122,7 +130,7 @@ const App = () => {
                         <SinglePhoto
                             photos={favorites}
                             url={'/favorites/'}
-                            {...{ favorites, setFavorites, setSearhByUser }}
+                            {...{ favorites, setFavorites, searchUserPhotos }}
                         />
                     }
                 ></Route>

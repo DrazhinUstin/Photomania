@@ -12,7 +12,6 @@ $spacing: 0.1rem;
 $light-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 $shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 $ease-trans: all 0.4s ease;
-$ease-trans-2: all 2s ease;
 $cubic-trans: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 
 %flex-center {
@@ -25,4 +24,5 @@ $cubic-trans: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    column-gap: 0.5rem;
 }

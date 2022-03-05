@@ -1,18 +1,15 @@
 import React, { useRef } from 'react';
 import { FaSearch } from 'react-icons/fa';
 
-const SearchForm = ({ query, setQuery, setPage, setSearch, error }) => {
-    const queryDOM = useRef(null);
+const SearchForm = ({ input, setInput, query, searchPhotos, error }) => {
+    const inputRef = useRef(null);
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const value = queryDOM.current.value;
-        if (!value || value === query) {
-            queryDOM.current.focus();
+        if (!input || input === query) {
+            inputRef.current.focus();
         } else {
-            setSearch('photos');
-            setQuery(value);
-            setPage(1);
+            searchPhotos(input);
         }
     };
 
@@ -22,7 +19,9 @@ const SearchForm = ({ query, setQuery, setPage, setSearch, error }) => {
                 type='text'
                 placeholder='Search photo'
                 autoComplete='off'
-                ref={queryDOM}
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                ref={inputRef}
                 className={error ? 'error' : ''}
             />
             <button type='submit'>

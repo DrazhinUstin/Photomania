@@ -12,14 +12,14 @@ const checkIsInFavorites = (items, id) => {
     return items.find((item) => item.id === id) ? true : false;
 };
 
-const SinglePhoto = ({ photos, favorites, setFavorites, setSearhByUser, url = '/' }) => {
+const SinglePhoto = ({ photos, favorites, setFavorites, searchUserPhotos, url = '/' }) => {
     const { id } = useParams();
     const index = getPhotoIndex(id, photos);
     const [inFavorites, setInFavorites] = useState(checkIsInFavorites(favorites, id));
     const navigate = useNavigate();
 
     useEffect(() => {
-        setInFavorites(() => checkIsInFavorites(favorites, id));
+        setInFavorites(checkIsInFavorites(favorites, id));
     }, [id]);
 
     useEffect(() => {
@@ -37,7 +37,7 @@ const SinglePhoto = ({ photos, favorites, setFavorites, setSearhByUser, url = '/
         return <ErrorPage />;
     }
 
-    return <Modal {...{ index, photos, inFavorites, setInFavorites, setSearhByUser, url }} />;
+    return <Modal {...{ index, photos, inFavorites, setInFavorites, searchUserPhotos, url }} />;
 };
 
 export default SinglePhoto;

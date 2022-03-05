@@ -22,7 +22,8 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        transition: $ease-trans-2;
+        transition: $ease-trans;
+        transition-duration: 2s;
     }
     &-info {
         position: absolute;

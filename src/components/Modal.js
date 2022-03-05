@@ -11,7 +11,7 @@ import {
 } from 'react-icons/fa';
 import { triggerFileDownload } from '../utils';
 
-const Modal = ({ index, photos, inFavorites, setInFavorites, setSearhByUser, url }) => {
+const Modal = ({ index, photos, inFavorites, setInFavorites, searchUserPhotos, url }) => {
     const { id, login, userName, image, linkToImage, userImage, linkToUser, alt_description } =
         photos[index];
     const navigate = useNavigate();
@@ -27,7 +27,7 @@ const Modal = ({ index, photos, inFavorites, setInFavorites, setSearhByUser, url
 
     return (
         <div className='modal-container'>
-            <div className={'modal-overlay'}></div>
+            <div className='modal-overlay'></div>
             <section className='modal'>
                 <header className='modal-header'>
                     <div>
@@ -65,7 +65,7 @@ const Modal = ({ index, photos, inFavorites, setInFavorites, setSearhByUser, url
                         </a>
                         <h4>{userName}</h4>
                     </div>
-                    <button className='btn' onClick={() => setSearhByUser(login)}>
+                    <button className='btn' onClick={() => searchUserPhotos(login)}>
                         watch user photos
                     </button>
                 </footer>

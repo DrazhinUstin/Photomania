@@ -10,9 +10,7 @@ const ScrollTopBtn = () => {
                 ? setIsBtnShowing(true)
                 : setIsBtnShowing(false);
         };
-
         window.addEventListener('scroll', listenScroll);
-
         return () => window.removeEventListener('scroll', listenScroll);
     }, []);
 

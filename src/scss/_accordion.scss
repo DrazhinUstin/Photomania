@@ -10,7 +10,6 @@
         }
         &-header {
             @extend %flex-between;
-            column-gap: 0.75rem;
             padding: 1rem;
             cursor: pointer;
             p {
@@ -22,6 +21,7 @@
                 }
             }
             svg {
+                flex-shrink: 0;
                 font-size: 1.2rem;
                 transition: $ease-trans;
             }

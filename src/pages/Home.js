@@ -2,10 +2,10 @@ import React from 'react';
 import SearchForm from '../components/SearchForm';
 import Photos from '../components/Photos';
 
-const Home = ({ loading, error, photos, query, setQuery, setPage, setSearch }) => {
+const Home = ({ input, setInput, loading, error, photos, query, searchPhotos }) => {
     return (
         <section className='section section-center'>
-            <SearchForm {...{ query, setQuery, setPage, setSearch, error }} />
+            <SearchForm {...{ input, setInput, query, searchPhotos, error }} />
             <Photos photos={photos} loading={loading} />
             {loading && <div className='loading'></div>}
         </section>

@@ -7,18 +7,10 @@ const Navbar = ({ favorites }) => {
     const [isNavbarMenuOpen, setIsNavbarMenuOpen] = useState(false);
     const navbarMenuRef = useRef(null);
 
-    useEffect(() => {
-        const navbarMenu = navbarMenuRef.current;
-
-        const handleClick = (event) => {
-            if (event.target.tagName !== 'A') return;
-            setIsNavbarMenuOpen(false);
-        };
-
-        navbarMenu.addEventListener('click', handleClick);
-
-        return () => navbarMenu.removeEventListener('click', handleClick);
-    }, []);
+    const handleClick = (event) => {
+        if (!event.target.closest('a')) return;
+        setIsNavbarMenuOpen(false);
+    };
 
     useEffect(() => {
         const navbarMenu = navbarMenuRef.current;
@@ -31,14 +23,14 @@ const Navbar = ({ favorites }) => {
 
     return (
         <nav className='navbar-wrapper'>
-            <div className='navbar section-center'>
+            <div className='navbar section-center' onClick={handleClick}>
                 <div className='navbar-header'>
                     <Link to={'.'}>
                         <h1 className='navbar-logo'>photomania</h1>
                     </Link>
                     <button
                         className={`navbar-menu-toggle-btn ${isNavbarMenuOpen ? 'active' : ''}`}
-                        onClick={() => setIsNavbarMenuOpen((isNavbarMenuOpen) => !isNavbarMenuOpen)}
+                        onClick={() => setIsNavbarMenuOpen((oldState) => !oldState)}
                     >
                         <span></span>
                     </button>
